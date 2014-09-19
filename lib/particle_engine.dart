@@ -4,7 +4,7 @@ import 'dart:html';
 import 'dart:math' as math;
 
 import 'package:partycles/particle.dart';
-//import 'package:partycles/force.dart';
+import 'package:partycles/point.dart';
 
 class ParticleEngine {
   List<Particle> particles = new List();
