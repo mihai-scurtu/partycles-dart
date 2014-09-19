@@ -14,8 +14,11 @@ class Force {
       rng = new Random();
     }
     
-    this.x = 2 * rng.nextDouble() * degree - degree;
-    this.y = 2 * rng.nextDouble() * degree - degree;
+    num r = rng.nextDouble() * degree;
+    num theta = rng.nextDouble() * 2 * PI;
+    
+    this.x = r * cos(theta);
+    this.y = r * sin(theta);
   }
 
   

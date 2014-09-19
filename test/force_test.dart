@@ -19,7 +19,7 @@ void main() {
     
     expect(f.x > -5 && f.x < 5, true);
     expect(f.y > -5 && f.y < 5, true);
-    expect(f.abs < 5 * SQRT2, true);
+    expect(f.abs < 5, true);
   });
   
   test('Absolute value', (){
