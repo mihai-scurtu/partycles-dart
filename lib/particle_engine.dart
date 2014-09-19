@@ -68,11 +68,17 @@ class ParticleEngine {
     }
     
     num lineHeight = 25;
-    this.canvas.context2D
-      ..font = '22px Courier'
-      ..fillStyle = '#000000'
-      ..fillText(this.textBuffer, 10, lineHeight);
+    num x = 10;
+    num y = lineHeight;
     
+    for(String line in this.textBuffer.split('\n')) {
+      this.canvas.context2D
+        ..font = '22px Courier'
+        ..fillStyle = '#000000'
+        ..fillText(line, 10, y);
+      
+      y += lineHeight;
+    }
     this.textBuffer = '';
   }
   
