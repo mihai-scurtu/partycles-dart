@@ -49,7 +49,6 @@ class ParticleEngine {
     
     this.cleanUp(); 
     
-    print(this.delta);
     if(this.delta > 0) { 
       // Update fps.
       num fps = (1000 / this.delta).round();
