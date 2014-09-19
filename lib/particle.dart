@@ -1,6 +1,8 @@
 library particle;
 
-import 'point.dart';
+import 'dart:math';
+
+//import 'point.dart';
 import 'force.dart';
 
 class Particle extends Point {

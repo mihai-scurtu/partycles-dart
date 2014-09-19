@@ -1,17 +1,16 @@
 library particle_engine;
 
 import 'dart:html';
-import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:partycles/particle.dart';
 //import 'package:partycles/force.dart';
-import 'package:partycles/point.dart';
 
 class ParticleEngine {
   List<Particle> particles = new List();
   
   CanvasElement canvas;  
-  Random rng = new Random();
+  math.Random rng = new math.Random();
   
   Function physicsCallback = (num delta) {};
   Function drawCallback = () {};
@@ -22,7 +21,7 @@ class ParticleEngine {
   // in "tiles"
   num width;
   num height;
-
+  
   ParticleEngine(this.canvas) {
     this.width = (this.canvas.width / this.scale).floor();
     this.height = (this.canvas.height / this.scale).floor();
@@ -54,7 +53,7 @@ class ParticleEngine {
     this.canvas.context2D
       ..fillStyle = p.color
       ..beginPath()
-      ..arc(p.x * this.scale, p.y * this.scale, p.radius.toDouble(), 0, 2.0 * PI)
+      ..arc(p.x * this.scale, p.y * this.scale, p.radius.toDouble(), 0, 2.0 * math.PI)
       ..closePath()
       ..fill();
   }
