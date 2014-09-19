@@ -69,9 +69,9 @@ class ParticleEngine {
     
     num lineHeight = 25;
     this.canvas.context2D
-      ..font = 'Courier 22px'
+      ..font = '22px Courier'
       ..fillStyle = '#000000'
-      ..fillText(this.textBuffer, 10, 10);
+      ..fillText(this.textBuffer, 10, lineHeight);
     
     this.textBuffer = '';
   }
