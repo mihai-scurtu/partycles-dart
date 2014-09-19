@@ -9,7 +9,7 @@ import 'package:partycles/force.dart';
 void main() {
   ParticleEngine engine = new ParticleEngine(document.querySelector('canvas#main'));
   
-  engine.drawCallback = () {
+  engine.drawCallback = (engine) {
     Particle p = engine.randomParticle();
     p.force = new Force.random(0.2);
     engine.particles.add(p);

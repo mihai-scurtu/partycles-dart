@@ -12,8 +12,8 @@ class ParticleEngine {
   CanvasElement canvas;  
   math.Random rng = new math.Random();
   
-  Function physicsCallback = () {};
-  Function drawCallback = () {};
+  Function physicsCallback = (ParticleEngine) {};
+  Function drawCallback = (ParticleEngine) {};
   bool exit = false;
   
   // pixel count per grid
@@ -71,7 +71,7 @@ class ParticleEngine {
   }
   
   void updatePhysics() {
-    this.physicsCallback();
+    this.physicsCallback(this);
     
     for(Particle p in this.particles) {
       p.x += p.force.x * delta;
@@ -80,7 +80,7 @@ class ParticleEngine {
   }
   
   void draw() {
-    this.drawCallback();
+    this.drawCallback(this);
     
     for(Particle p in this.particles) {
       this.drawParticle(p);
