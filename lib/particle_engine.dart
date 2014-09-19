@@ -12,8 +12,9 @@ class ParticleEngine {
   CanvasElement canvas;  
   math.Random rng = new math.Random();
   
-  Function physicsCallback = (num delta) {};
+  Function physicsCallback = () {};
   Function drawCallback = () {};
+  bool exit = false;
   
   // pixel count per grid
   num scale = 2;
@@ -23,21 +24,59 @@ class ParticleEngine {
   num height;
   
   String textBuffer = '';
-
+  
+  Stopwatch stopwatch = new Stopwatch();
+  num averageFPS = null;
+  num targetFPS = 60;
+  num delta = 0;
+  num frameTime = 0;
+  
   ParticleEngine(this.canvas) {
     this.width = (this.canvas.width / this.scale).floor();
     this.height = (this.canvas.height / this.scale).floor();
   }
   
-  void loop(Function callback) {
+  void loop([num time]) {
+    // Hack to animate when function was called from outside
+    if(time == null) {
+      window.animationFrame.then(this.loop);
+      return;
+    }
     
+    // Update timing.
+    this.delta = (this.frameTime - time).abs();
+    this.frameTime = time;
+    
+    this.cleanUp(); 
+    
+    print(this.delta);
+    if(this.delta > 0) { 
+      // Update fps.
+      num fps = (1000 / this.delta).round();
+      if(this.averageFPS == null) {
+        this.averageFPS = fps; 
+      } else {
+        this.averageFPS = 0.95 * this.averageFPS + 0.05 * fps;
+      }
+      
+      // Show fps.
+      this.bufferText('FPS: ${this.averageFPS.round()}\n');
+    }
+    
+    this.updatePhysics();
+    this.draw();
+    
+    if(!this.exit) { 
+      window.animationFrame.then(this.loop);
+    }
   }
   
-  void updatePhysics(num delta) {
-    this.physicsCallback(delta);
+  void updatePhysics() {
+    this.physicsCallback();
     
     for(Particle p in this.particles) {
-      
+      p.x += p.force.x * delta;
+      p.y += p.force.y * delta;
     }
   }
   
@@ -79,7 +118,6 @@ class ParticleEngine {
       
       y += lineHeight;
     }
-    this.textBuffer = '';
   }
   
   
@@ -87,8 +125,13 @@ class ParticleEngine {
     this.textBuffer += '$s ';
   }
   
+  void cleanUp() {
+    this.textBuffer = '';
+    this.canvas.context2D.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+  
   bool contains(Point p) => p.x >= 0 && p.y >= 0 && p.x <= this.width && p.y <= this.height;
   
   Particle randomParticle() => 
     new Particle(this.rng.nextInt(this.width), this.rng.nextInt(this.height));
-}
+ }

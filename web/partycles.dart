@@ -11,6 +11,6 @@ void main() {
   engine.particles.add(engine.randomParticle());
   engine.particles.add(engine.randomParticle());
   engine.particles.add(engine.randomParticle());
-  engine.bufferText('Hello World\n!!');
-  engine.draw();
+//  engine.bufferText('Hello World\n!!');
+  engine.loop();
 }
